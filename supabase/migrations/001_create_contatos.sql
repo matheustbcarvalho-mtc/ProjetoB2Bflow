@@ -1,4 +1,4 @@
--- Tabela de contatos para o desafio Supabase + Z-API
+-- Tabela de contatos para o desafio Supabase + Dispara.ai
 CREATE TABLE IF NOT EXISTS public.contatos (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   nome TEXT NOT NULL,

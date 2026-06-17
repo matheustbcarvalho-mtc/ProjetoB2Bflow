@@ -10,9 +10,8 @@ load_dotenv()
 class Settings:
     supabase_url: str
     supabase_key: str
-    zapi_instance_id: str
-    zapi_token: str
-    zapi_client_token: str | None
+    dispara_webhook_url: str
+    dispara_api_token: str | None
     max_contacts: int
 
     @classmethod
@@ -22,8 +21,7 @@ class Settings:
             for name, value in {
                 "SUPABASE_URL": os.getenv("SUPABASE_URL"),
                 "SUPABASE_KEY": os.getenv("SUPABASE_KEY"),
-                "ZAPI_INSTANCE_ID": os.getenv("ZAPI_INSTANCE_ID"),
-                "ZAPI_TOKEN": os.getenv("ZAPI_TOKEN"),
+                "DISPARA_WEBHOOK_URL": os.getenv("DISPARA_WEBHOOK_URL"),
             }.items()
             if not value
         ]
@@ -35,8 +33,7 @@ class Settings:
         return cls(
             supabase_url=os.environ["SUPABASE_URL"],
             supabase_key=os.environ["SUPABASE_KEY"],
-            zapi_instance_id=os.environ["ZAPI_INSTANCE_ID"],
-            zapi_token=os.environ["ZAPI_TOKEN"],
-            zapi_client_token=os.getenv("ZAPI_CLIENT_TOKEN"),
+            dispara_webhook_url=os.environ["DISPARA_WEBHOOK_URL"],
+            dispara_api_token=os.getenv("DISPARA_API_TOKEN") or None,
             max_contacts=max(1, min(max_contacts, 3)),
         )

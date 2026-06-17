@@ -1,6 +1,6 @@
-# Supabase → Z-API · Envio de WhatsApp em Python
+# Supabase → Dispara.ai · Envio de WhatsApp em Python
 
-Projeto do desafio que **lê contatos cadastrados no Supabase** e envia, via **Z-API**, a mensagem:
+Projeto do desafio que **lê contatos cadastrados no Supabase** e dispara, via **webhook da Dispara.ai**, a mensagem:
 
 > **Olá, {nome} tudo bem com você?**
 
@@ -10,7 +10,7 @@ Para até **3 números diferentes** (ou menos, se houver menos contatos no banco
 
 - Python 3.11+
 - Conta gratuita no [Supabase](https://supabase.com/)
-- Conta/instância gratuita na [Z-API](https://z-api.io/) com WhatsApp conectado
+- Conta na [Dispara.ai](https://dispara.ai/) com canal, fluxo e gatilho de webhook ativos
 
 ## Estrutura
 
@@ -20,7 +20,7 @@ Para até **3 números diferentes** (ou menos, se houver menos contatos no banco
 ├── src/
 │   ├── config.py                # variáveis de ambiente
 │   ├── supabase_client.py       # leitura de contatos
-│   └── zapi_client.py           # envio via Z-API
+│   └── dispara_ai_client.py     # disparo via webhook Dispara.ai
 ├── supabase/migrations/         # SQL da tabela contatos
 ├── tests/                       # testes da mensagem
 ├── requirements.txt
@@ -65,9 +65,16 @@ Preencha o `.env`:
 |---------------------|-----------------------------------------------------|
 | `SUPABASE_URL`      | Supabase → Settings → API → Project URL             |
 | `SUPABASE_KEY`      | Supabase → Settings → API → anon key (ou service_role para scripts locais) |
-| `ZAPI_INSTANCE_ID`  | Z-API → Instâncias                                  |
-| `ZAPI_TOKEN`        | Z-API → Instâncias → Token                          |
-| `ZAPI_CLIENT_TOKEN` | Z-API → Segurança (opcional)                        |
+| `DISPARA_WEBHOOK_URL` | Dispara.ai → Gatilho de Webhook → Link de Webhook |
+| `DISPARA_API_TOKEN` | Opcional: token Bearer caso seu webhook exija autenticação adicional |
+
+No painel da Dispara.ai, crie um fluxo, vincule-o a um gatilho de **Webhook** e configure o mapeamento dos campos recebidos:
+
+| Campo enviado pelo script | Uso sugerido na Dispara.ai |
+|---------------------------|----------------------------|
+| `telefone`                | Telefone do contato (obrigatório) |
+| `nome`                    | Nome para personalização |
+| `mensagem`                | Texto pronto da mensagem |
 
 ## 3. Executar
 
@@ -79,7 +86,7 @@ Saída esperada:
 
 ```
 Enviando mensagens para 3 contato(s)...
-✓ Maria (5511999990001): D241XXXX732339502B68
+✓ Maria (5511999990001): received
 ✓ João (5511999990002): ...
 ✓ Ana (5511999990003): ...
 ```
@@ -95,9 +102,9 @@ pytest
 
 1. O script busca até `MAX_CONTACTS` registros (padrão 3) na tabela `contatos`.
 2. Para cada contato, monta a mensagem: `Olá, {nome} tudo bem com você?`
-3. Envia via endpoint Z-API `POST /instances/{id}/token/{token}/send-text`.
+3. Envia um `POST` JSON para o webhook da Dispara.ai com `telefone`, `nome` e `mensagem`.
 
-Documentação Z-API: [Enviar texto simples](https://developer.z-api.io/message/send-text)
+Referência Dispara.ai: [Integração com GoogleForms](https://ajudadispara.crisp.help/pt-br/article/integracao-com-o-googleforms-1sicagu/)
 
 ## Licença
 

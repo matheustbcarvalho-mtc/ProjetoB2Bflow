@@ -1,8 +1,8 @@
-"""Lê contatos do Supabase e envia mensagem personalizada via Z-API."""
+"""Lê contatos do Supabase e envia mensagem personalizada via Dispara.ai."""
 
 from src.config import Settings
+from src.dispara_ai_client import DisparaAiClient
 from src.supabase_client import SupabaseContatoRepository
-from src.zapi_client import ZApiClient
 
 MESSAGE_TEMPLATE = "Olá, {nome} tudo bem com você?"
 
@@ -18,10 +18,9 @@ def main() -> None:
         settings.supabase_url,
         settings.supabase_key,
     )
-    zapi = ZApiClient(
-        instance_id=settings.zapi_instance_id,
-        token=settings.zapi_token,
-        client_token=settings.zapi_client_token,
+    dispara_ai = DisparaAiClient(
+        webhook_url=settings.dispara_webhook_url,
+        api_token=settings.dispara_api_token,
     )
 
     contatos = repository.list_contacts(limit=settings.max_contacts)
@@ -33,8 +32,9 @@ def main() -> None:
 
     for contato in contatos:
         message = build_message(contato.nome)
-        result = zapi.send_text(contato.telefone, message)
-        print(f"✓ {contato.nome} ({contato.telefone}): {result.get('messageId', 'enviado')}")
+        result = dispara_ai.send_text(contato.telefone, message, name=contato.nome)
+        status = result.get("id") or result.get("status") or result.get("status_code") or "enviado"
+        print(f"✓ {contato.nome} ({contato.telefone}): {status}")
 
 
 if __name__ == "__main__":
