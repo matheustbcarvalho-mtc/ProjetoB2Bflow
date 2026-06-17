@@ -22,6 +22,8 @@ class DisparaAiClient:
             "mensagem": message,
             "message": message,
             "text": message,
+            "saudação": message,
+            "saudacao": message,
         }
         if name:
             payload["nome"] = name

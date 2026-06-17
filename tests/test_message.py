@@ -49,6 +49,8 @@ def test_dispara_ai_client_posts_expected_payload(monkeypatch):
             "mensagem": "Olá, Maria tudo bem com você?",
             "message": "Olá, Maria tudo bem com você?",
             "text": "Olá, Maria tudo bem com você?",
+            "saudação": "Olá, Maria tudo bem com você?",
+            "saudacao": "Olá, Maria tudo bem com você?",
             "nome": "Maria",
             "name": "Maria",
         },
