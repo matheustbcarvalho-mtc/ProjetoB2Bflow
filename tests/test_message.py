@@ -47,6 +47,7 @@ def test_dispara_ai_client_posts_expected_payload(monkeypatch):
             "phone": "5511999990001",
             "whatsapp": "5511999990001",
             "mensagem": "Olá, Maria tudo bem com você?",
+            "mensagem_python": "Olá, Maria tudo bem com você?",
             "message": "Olá, Maria tudo bem com você?",
             "text": "Olá, Maria tudo bem com você?",
             "saudação": "Olá, Maria tudo bem com você?",

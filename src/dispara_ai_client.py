@@ -20,6 +20,7 @@ class DisparaAiClient:
             "phone": phone,
             "whatsapp": phone,
             "mensagem": message,
+            "mensagem_python": message,
             "message": message,
             "text": message,
             "saudação": message,
