@@ -44,8 +44,13 @@ def test_dispara_ai_client_posts_expected_payload(monkeypatch):
         "url": "https://webhook.dispara.ai/exemplo",
         "json": {
             "telefone": "5511999990001",
+            "phone": "5511999990001",
+            "whatsapp": "5511999990001",
             "mensagem": "Olá, Maria tudo bem com você?",
+            "message": "Olá, Maria tudo bem com você?",
+            "text": "Olá, Maria tudo bem com você?",
             "nome": "Maria",
+            "name": "Maria",
         },
         "headers": {
             "Content-Type": "application/json",

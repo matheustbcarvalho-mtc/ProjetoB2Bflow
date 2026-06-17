@@ -17,10 +17,15 @@ class DisparaAiClient:
     def send_text(self, phone: str, message: str, name: str | None = None) -> dict:
         payload = {
             "telefone": phone,
+            "phone": phone,
+            "whatsapp": phone,
             "mensagem": message,
+            "message": message,
+            "text": message,
         }
         if name:
             payload["nome"] = name
+            payload["name"] = name
 
         response = requests.post(
             self._webhook_url,

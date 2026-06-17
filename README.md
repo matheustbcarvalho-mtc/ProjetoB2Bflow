@@ -72,9 +72,9 @@ No painel da Dispara.ai, crie um fluxo, vincule-o a um gatilho de **Webhook** e 
 
 | Campo enviado pelo script | Uso sugerido na Dispara.ai |
 |---------------------------|----------------------------|
-| `telefone`                | Telefone do contato (obrigatório) |
-| `nome`                    | Nome para personalização |
-| `mensagem`                | Texto pronto da mensagem |
+| `telefone`, `phone`, `whatsapp` | Telefone do contato (obrigatório) |
+| `nome`, `name`                  | Nome para personalização |
+| `mensagem`, `message`, `text`   | Texto pronto da mensagem |
 
 ## 3. Executar
 
@@ -102,7 +102,7 @@ pytest
 
 1. O script busca até `MAX_CONTACTS` registros (padrão 3) na tabela `contatos`.
 2. Para cada contato, monta a mensagem: `Olá, {nome} tudo bem com você?`
-3. Envia um `POST` JSON para o webhook da Dispara.ai com `telefone`, `nome` e `mensagem`.
+3. Envia um `POST` JSON para o webhook da Dispara.ai com telefone, nome e mensagem. O payload inclui aliases (`telefone`/`phone`/`whatsapp`, `nome`/`name`, `mensagem`/`message`/`text`) para facilitar o mapeamento no fluxo.
 
 Referência Dispara.ai: [Integração com GoogleForms](https://ajudadispara.crisp.help/pt-br/article/integracao-com-o-googleforms-1sicagu/)
 
